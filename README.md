@@ -13,8 +13,8 @@ Legacy is a decentralized application that aims to prevent permanent loss of ERC
 
 ## Directory structure
 
-- frontend: Contains Frontend application for Legacy
-- smartcontract: Contains Legacy smart contract
+- [frontend](./frontend) : Contains Frontend application for Legacy
+- [smartcontracts](./smartcontracts) : Contains Legacy smart contract
 
 ## How it works
 TBD
