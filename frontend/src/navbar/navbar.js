@@ -50,21 +50,19 @@ const Navbar = () => {
 
   useEffect(() => {
     try {
-      setTimeout(() => {
-        if (!isDisconnected()) {
-          const account = checkConnection();
-          if (account) {
-            setIsConnected(true)
-            setUser(account);
-          }
-          else {
-            disconnect();
-            navigate('/');
-          }
-        } else {
-          navigate('/')
+      if (!isDisconnected()) {
+        const account = checkConnection();
+        if (account) {
+          setIsConnected(true)
+          setUser(account);
         }
-      }, 1000);
+        else {
+          disconnect();
+          navigate('/');
+        }
+      } else {
+        navigate('/')
+      }
     } catch (err) {
       console.log(err)
     }

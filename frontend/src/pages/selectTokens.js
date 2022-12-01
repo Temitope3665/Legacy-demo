@@ -29,10 +29,8 @@ const SelectTokens = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
-    setTimeout(() => {
-      setGetTokensLoading(true);
-      getTokens();
-    }, 1000)
+    setGetTokensLoading(true);
+    getTokens();
   }, []);
 
   const getTokens = async () => {
@@ -58,12 +56,8 @@ const SelectTokens = () => {
       const legacyTokens = await getLegacyTokens(user);
       let alreadyAdded = [];
       let toBeAdded = [];
-      console.log(allTokens);
       allTokens.map((t) => {
-        console.log(t.token_address, legacyTokens)
-        console.log(legacyTokens.includes(t.token_address));
         if (legacyTokens.includes(t.token_address)) {
-          console.log(t.token_address);
           alreadyAdded.push(t);
         } else {
           toBeAdded.push(t);

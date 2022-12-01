@@ -21,16 +21,7 @@ import {
 
 const Home = () => {
     let navigate = useNavigate();
-    const [user, setUser] = useState("");
     const [getStartedLoading, setGetStartedLoading] = useState(false);
-
-    useEffect(() => {
-        setTimeout(() => {
-            if (!isDisconnected()) {
-                setUser(checkConnection());
-            }
-        }, 1000);
-    }, [user]);
 
     const handlegetstarted = async () => {
         setGetStartedLoading(true);
@@ -38,7 +29,9 @@ const Home = () => {
         if (isDisconnected()) {
             await connectWallet()
         }
-        // console.log(await hasLegacy(user)); return;
+
+        const user = await checkConnection();
+        console.log(user);
         if (await hasLegacy(user)) {
             navigate('/profile');
         } else {

@@ -165,7 +165,6 @@ const getUserInterval = async () => {
     //TODO
     //Display loader
     const res = await legacy.getLegacy(userAddress);
-    console.log(res);
     const legatee = res[0];
     //Convert lastSeen to minutes (just for the sake of demo)
     let ls = Math.floor(((Number(new Date()) / 1000) - Number(res[3])) / (3600 * 24));

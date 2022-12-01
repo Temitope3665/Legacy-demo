@@ -18,14 +18,12 @@ const Edit = () => {
 
   useEffect(() => {
     getLegacy().then(async () => {
-      setIsLoading(false)
-      const legacy = await getUserInterval(checkConnection);
-      console.log(legacy)
+      setIsLoading(false);
     });
   }, [])
 
   async function getLegacy() {
-    const legacy = await getUserInterval(checkConnection());
+    const legacy = await getUserInterval(await checkConnection());
     setCheckInterval(legacy.interval.split(" ")[1]);
     setLagatee(legacy.legatee);
     setUserNextOfKin(localStorage.getItem("legatee"));
