@@ -32,12 +32,14 @@ const Navbar = () => {
       if (await hasLegacy(checkConnection())) {
         navigate('/profile');
       }
+    } else {
+      toaster.warning("Connect your wallet first")
     }
   }
 
   const connect = async () => {
     try {
-      const account = await connectWallet();
+      const account = await connectWallet()
       if (account) {
         setUser(account);
         setIsConnected(true);
@@ -101,24 +103,28 @@ const Navbar = () => {
           >
             Profile
           </Text>
-          <Text
-            cursor="pointer"
-            ml={{ base: "0", lg: "100px" }}
-            mt={{ base: "20px", lg: "0" }}
-            _hover={{ color: "brand.teal" }}
-            color="brand.white"
-          >
-            About us
-          </Text>
-          <Text
-            cursor="pointer"
-            mt={{ base: "20px", lg: "0" }}
-            ml={{ base: "0", lg: "100px" }}
-            _hover={{ color: "brand.teal" }}
-            color="brand.white"
-          >
-            How it works
-          </Text>
+            <a href="/#about-us">
+            <Text
+              cursor="pointer"
+              ml={{ base: "0", lg: "100px" }}
+              mt={{ base: "20px", lg: "0" }}
+              _hover={{ color: "brand.teal" }}
+              color="brand.white"
+            >
+              About us
+            </Text>
+            </a>
+          <a href="/#how-it-works">
+            <Text
+              cursor="pointer"
+              mt={{ base: "20px", lg: "0" }}
+              ml={{ base: "0", lg: "100px" }}
+              _hover={{ color: "brand.teal" }}
+              color="brand.white"
+            >
+              How it works
+            </Text>
+          </a>
         </Flex>
         {isConnected ?
           <CustomButton

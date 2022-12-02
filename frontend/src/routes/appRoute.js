@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { render } from "react-dom";
 import Home from "../pages/home";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "../theme";
+import AOS from "aos";
 import CheckInterval from "../pages/checkInterval";
 import Form from "../pages/form";
 import SelectTokens from "../pages/selectTokens";
 import SuccessMessage from "../pages/successMsg";
 import Edit from "../pages/edit";
+import 'aos/dist/aos.css';
 
 const AppRoute = () => {
 
     const legacy = localStorage.getItem('has_legacy');
+
+    useEffect(() => {
+      AOS.init();
+    }, [])
     
   return render(
     <BrowserRouter>
