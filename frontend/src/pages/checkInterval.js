@@ -43,7 +43,6 @@ const CheckInterval = () => {
       const txHash = await checkIn();
       setCheckInLoading(false);
     } catch (error) {
-      toaster.danger("An error occured!");
       setCheckInLoading(false);
       return;
     }
