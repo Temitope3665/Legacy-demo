@@ -58,6 +58,29 @@ const Navbar = () => {
     }
   }
 
+  const logoutAcct = () => {
+    try {
+      uauth.logout();
+      localStorage.removeItem('wallet_addr');
+      disconnect();
+      window.location.reload();
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
+ const loginWithUnstoppable = async () => {
+    try {
+      const authorization = await uauth.loginWithPopup();
+      const walletAddress = authorization.idToken.wallet_address;
+      localStorage.setItem('wallet_addr', walletAddress);
+      connect();
+    } catch (error) {
+      toaster.danger(error.message, { id: "mess" });
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     try {
       if (!isDisconnected()) {

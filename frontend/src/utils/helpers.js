@@ -165,27 +165,6 @@ export const uauth = new UAuth(
     }
 );
 
-export const loginWithUnstoppable = async () => {
-  try {
-    const authorization = await uauth.loginWithPopup();
-    const walletAddress = authorization.idToken.wallet_address;
-    localStorage.setItem('wallet_addr', walletAddress);
-  } catch (error) {
-    toaster.danger(error.message, { id: "mess" });
-    console.log(error);
-  }
-};
-
-export const logoutAcct = () => {
-  try {
-    uauth.logout();
-    localStorage.removeItem('wallet_addr');
-    window.location.reload();
-  } catch (error) {
-    console.log(error)
-  }
-};
-
 const getUserInterval = async () => {
   try {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
