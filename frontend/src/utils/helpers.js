@@ -179,6 +179,8 @@ export const loginWithUnstoppable = async () => {
 export const logoutAcct = () => {
   try {
     uauth.logout();
+    localStorage.removeItem('wallet_addr');
+    window.location.reload();
   } catch (error) {
     console.log(error)
   }

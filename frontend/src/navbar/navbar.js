@@ -76,7 +76,7 @@ const Navbar = () => {
     } catch (err) {
       console.log(err)
     }
-  }, [])
+  }, []);
 
   return (
     <>
@@ -139,7 +139,7 @@ const Navbar = () => {
           <Menu>
                       <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
                         <Text fontWeight="medium" fontSize="14px">
-                          {!walletAddr ? 'Connect' : 'Disconnect'}
+                          {!isConnected ? 'Connect' : 'Disconnect'}
                         </Text>
                       </MenuButton>
                       <MenuList>
@@ -147,14 +147,14 @@ const Navbar = () => {
                             <MenuItem onClick={isConnected ? disconnect : connect}>
                               <Flex>
                               <Image cursor="pointer" src={MetamaskLogo} alit="unstoppable-logo" w="20px" />
-                                <Text ml="10px">{isConnected ? 'Disconnect Metamask' : 'Connect Metamask'} </Text>
+                                <Text ml="10px">{isConnected ? 'Disconnect Metamask' : 'Connect Metamask'}</Text>
                               </Flex>
                             </MenuItem>
                             <MenuDivider />
-                            <MenuItem onClick={loginWithUnstoppable}>
+                            <MenuItem onClick={walletAddr ? logoutAcct : loginWithUnstoppable}>
                             <Flex>
                               <Image cursor="pointer" src={UnstoppableLogo} alit="unstoppable-logo" w="20px" />
-                                <Text ml="10px">{walletAddr ? 'Login With Unstoppable' : 'Login with Unstoppable'}</Text>
+                                <Text ml="10px">{walletAddr ? 'Logout With Unstoppable' : 'Login with Unstoppable'}</Text>
                               </Flex>
                             </MenuItem>
                           </>
@@ -231,7 +231,7 @@ const Navbar = () => {
           <Menu>
                   <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
                     <Text fontWeight="medium" fontSize="14px">
-                      {!walletAddr ? 'Connect' : 'Disconnect'}
+                    {!isConnected ? 'Connect' : 'Disconnect'}
                     </Text>
                   </MenuButton>
                   <MenuList>
@@ -239,14 +239,14 @@ const Navbar = () => {
                         <MenuItem onClick={isConnected ? disconnect : connect}>
                           <Flex>
                           <Image cursor="pointer" src={MetamaskLogo} alit="unstoppable-logo" w="20px" />
-                            <Text ml="10px">{isConnected ? 'Disconnect Metamask' : 'Connect Metamask'} </Text>
+                            <Text ml="10px">{isConnected ? 'Disconnect Metamask' : 'Connect Metamask'}</Text>
                           </Flex>
                         </MenuItem>
                         <MenuDivider />
-                        <MenuItem onClick={loginWithUnstoppable}>
+                        <MenuItem onClick={walletAddr ? logoutAcct : loginWithUnstoppable}>
                         <Flex>
                           <Image cursor="pointer" src={UnstoppableLogo} alit="unstoppable-logo" w="20px" />
-                            <Text ml="10px">{walletAddr ? 'Login With Unstoppable' : 'Login with Unstoppable'}</Text>
+                            <Text ml="10px">{walletAddr ? 'Logout With Unstoppable' : 'Login with Unstoppable'}</Text>
                           </Flex>
                         </MenuItem>
                       </>
