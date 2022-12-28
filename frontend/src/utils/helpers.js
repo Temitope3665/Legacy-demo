@@ -3,6 +3,7 @@
 import { ethers } from "ethers";
 import { toaster } from "evergreen-ui";
 import { legacyAddress, legacyAbi } from "./contract";
+import UAuth from '@uauth/js';
 
 export async function addTokens(tokens) {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -155,6 +156,33 @@ export async function checkConnection() {
     console.log(error)
   }
 }
+
+export const uauth = new UAuth(
+  {
+      clientID: process.env.REACT_APP_UD_CLIENT_ID,
+      redirectUri: process.env.REACT_APP_REDIRECT_URI,
+      scope: "openid wallet email"
+    }
+);
+
+export const loginWithUnstoppable = async () => {
+  try {
+    const authorization = await uauth.loginWithPopup();
+    const walletAddress = authorization.idToken.wallet_address;
+    localStorage.setItem('wallet_addr', walletAddress);
+  } catch (error) {
+    toaster.danger(error.message, { id: "mess" });
+    console.log(error);
+  }
+};
+
+export const logoutAcct = () => {
+  try {
+    uauth.logout();
+  } catch (error) {
+    console.log(error)
+  }
+};
 
 const getUserInterval = async () => {
   try {

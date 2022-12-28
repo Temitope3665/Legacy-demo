@@ -1,18 +1,24 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, MenuDivider, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../src/assets/icons/logo.svg";
 import { close, hamburger } from "../assets/svgs/svg";
 import CustomButton from "../common/CustomButton";
-import { toaster } from "evergreen-ui";
+import { ChevronDownIcon, toaster } from "evergreen-ui";
 import { useNavigate } from "react-router-dom";
+import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import getUserInterval, {
   connect as connectWallet,
   checkConnection,
   disconnect as disconnectWallet,
   isDisconnected,
-  hasLegacy
+  hasLegacy,
+  uauth,
+  loginWithUnstoppable,
+  logoutAcct
 } from "../utils/helpers"
+import UnstoppableLogo from '../assets/icons/unstoppable-logo.png';
+import MetamaskLogo from '../assets/icons/metamask-icon.png';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -20,6 +26,8 @@ const Navbar = () => {
   const [user, setUser] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const walletAddr = localStorage.getItem("wallet_addr");
 
   const disconnect = () => {
     disconnectWallet();
@@ -126,19 +134,32 @@ const Navbar = () => {
             </Text>
           </a>
         </Flex>
-        {isConnected ?
-          <CustomButton
-            bg="brand.teal"
-            color="brand.white"
-            mt={{ base: "20px", lg: "0" }}
-            d={{ base: "none", lg: "flex" }}
-            hoverColor="brand.primary"
-            onClick={disconnect}
-          >
-            Disconnect
-          </CustomButton>
-          :
-          <CustomButton bg="none" border="1px solid #15F4CB" color="brand.white" hoverColor="brand.teal" mt={{ base: "20px", lg: "0" }} isLoading={isLoading} d={{ base: "none", lg: "flex" }} onClick={connect}>Connect</CustomButton>
+
+        {window.screen.width > 750 &&
+          <Menu>
+                      <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                        <Text fontWeight="medium" fontSize="14px">
+                          {!walletAddr ? 'Connect' : 'Disconnect'}
+                        </Text>
+                      </MenuButton>
+                      <MenuList>
+                          <>
+                            <MenuItem onClick={isConnected ? disconnect : connect}>
+                              <Flex>
+                              <Image cursor="pointer" src={MetamaskLogo} alit="unstoppable-logo" w="20px" />
+                                <Text ml="10px">{isConnected ? 'Disconnect Metamask' : 'Connect Metamask'} </Text>
+                              </Flex>
+                            </MenuItem>
+                            <MenuDivider />
+                            <MenuItem onClick={loginWithUnstoppable}>
+                            <Flex>
+                              <Image cursor="pointer" src={UnstoppableLogo} alit="unstoppable-logo" w="20px" />
+                                <Text ml="10px">{walletAddr ? 'Login With Unstoppable' : 'Login with Unstoppable'}</Text>
+                              </Flex>
+                            </MenuItem>
+                          </>
+                      </MenuList>
+          </Menu>
         }
 
       </Flex>
@@ -205,23 +226,33 @@ const Navbar = () => {
               How it works
             </Text>
           </Flex>
-          {
-            isConnected ?
-              <CustomButton
-                bg="none"
-                color="brand.white"
-                mt={{ base: "20px", lg: "0" }}
-                w="100%"
-                hoverColor="brand.teal"
-                border="1px solid #15F4CB"
-                onClick={disconnect}
-              >
-                Disconnect
-              </CustomButton>
-              :
-              <CustomButton bg="none" color="brand.white" hoverColor="brand.teal"
-                border="1px solid #15F4CB" mt={{ base: "20px", lg: "0" }} isLoading={isLoading} w="100%" onClick={connect}>Connect</CustomButton>
-          }
+
+<Flex mt="20px" justifyContent="center">
+          <Menu>
+                  <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                    <Text fontWeight="medium" fontSize="14px">
+                      {!walletAddr ? 'Connect' : 'Disconnect'}
+                    </Text>
+                  </MenuButton>
+                  <MenuList>
+                      <>
+                        <MenuItem onClick={isConnected ? disconnect : connect}>
+                          <Flex>
+                          <Image cursor="pointer" src={MetamaskLogo} alit="unstoppable-logo" w="20px" />
+                            <Text ml="10px">{isConnected ? 'Disconnect Metamask' : 'Connect Metamask'} </Text>
+                          </Flex>
+                        </MenuItem>
+                        <MenuDivider />
+                        <MenuItem onClick={loginWithUnstoppable}>
+                        <Flex>
+                          <Image cursor="pointer" src={UnstoppableLogo} alit="unstoppable-logo" w="20px" />
+                            <Text ml="10px">{walletAddr ? 'Login With Unstoppable' : 'Login with Unstoppable'}</Text>
+                          </Flex>
+                        </MenuItem>
+                      </>
+                  </MenuList>
+      </Menu>
+</Flex>
         </Flex>
       )}
     </>
